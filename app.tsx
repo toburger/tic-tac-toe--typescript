@@ -43,7 +43,7 @@ const initialState: State = {
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "MOVE":
-      if (!GameLogic.canUpdateBoard(state.board, action.x, action.y))
+      if (!GameLogic.canUpdateCell(state.board, action.x, action.y))
         return state;
       const newBoard = GameLogic.updateBoard(
         state.board,
@@ -70,7 +70,10 @@ const prefetchImages = () =>
     <link key={img} rel="prefetch" href={img} />
   ));
 
-const PlayerX = ({ className, ...props }: any) => (
+const PlayerX = ({
+  className,
+  ...props
+}: React.ImgHTMLAttributes<HTMLImageElement>) => (
   <img
     {...props}
     alt="PlayerX"
@@ -78,7 +81,10 @@ const PlayerX = ({ className, ...props }: any) => (
     className={["PlayerX", className].join(" ")}
   />
 );
-const PlayerO = ({ className, ...props }: any) => (
+const PlayerO = ({
+  className,
+  ...props
+}: React.ImgHTMLAttributes<HTMLImageElement>) => (
   <img
     {...props}
     alt="PlayerO"
@@ -86,7 +92,9 @@ const PlayerO = ({ className, ...props }: any) => (
     className={["PlayerO", className].join(" ")}
   />
 );
-const NoPlayer = (props: any) => <span {...props} className="NoPlayer" />;
+const NoPlayer = (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+  <span {...props} className="NoPlayer" />
+);
 
 interface CellProps {
   value: Cell;

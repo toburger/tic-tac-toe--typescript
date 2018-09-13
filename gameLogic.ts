@@ -1,6 +1,14 @@
 // This lib contains powerful functions for list transformations.
 import * as R from "ramda";
-import { Board, Cell, gameOver, winner, player, GameState } from "./types";
+import {
+  Board,
+  Cell,
+  gameOver,
+  winner,
+  player,
+  GameState,
+  empty
+} from "./types";
 
 /**
  * Helps debugging the board
@@ -24,21 +32,21 @@ export const updateBoard = (
 /**
  * Gets a single board value by x and y coordinates
  */
-export const getBoard = (board: Board, x: number, y: number): Cell | null =>
+export const getCell = (board: Board, x: number, y: number): Cell | null =>
   R.path<Cell>([x, y])(board) || null;
 
 /**
  * Checks if a board value can be updated (simply checks if the board contains null)
  */
-export const canUpdateBoard = (board: Board, x: number, y: number): boolean =>
-  R.equals(getBoard(board, x, y), { type: "EMPTY" });
+export const canUpdateCell = (board: Board, x: number, y: number): boolean =>
+  R.equals(getCell(board, x, y), empty());
 
 /**
  * Checks if all elements a row contain the same value 'v'.
  * Checks all three rows.
  */
-const checkRowsForWinner = (board: Board, v: Cell): boolean => {
-  const check = R.all(R.equals(v));
+const checkRowsForWinner = (board: Board, cell: Cell): boolean => {
+  const check = R.all(R.equals(cell));
   return check(board[0]) || check(board[1]) || check(board[2]);
 };
 
@@ -50,19 +58,19 @@ const checkRowsForWinner = (board: Board, v: Cell): boolean => {
  * gets rotated and the columns become rows. Then the "rows" can be passed
  * to checkRowsForWinner
  */
-const checkColsForWinner = (board: Board, v: Cell): boolean => {
+const checkColsForWinner = (board: Board, cell: Cell): boolean => {
   const transposedBoard = R.transpose(board);
-  return checkRowsForWinner(transposedBoard, v);
+  return checkRowsForWinner(transposedBoard, cell);
 };
 
 /**
  * Checks if all elements of a diagnola contain the same value 'v'.
  * Checks the two diagonals.
  */
-const checkDiagonalsForWinner = (board: Board, v: Cell): boolean => {
+const checkDiagonalsForWinner = (board: Board, cell: Cell): boolean => {
   const diag1 = [board[0][0], board[1][1], board[2][2]];
   const diag2 = [board[2][0], board[1][1], board[0][2]];
-  const check = R.all(R.equals(v));
+  const check = R.all(R.equals(cell));
   return check(diag1) || check(diag2);
 };
 
@@ -73,10 +81,10 @@ const checkDiagonalsForWinner = (board: Board, v: Cell): boolean => {
  * * diagonals
  * of the board contain the same value 'v'.
  */
-const checkForWinner = (board: Board, v: Cell): boolean =>
-  checkRowsForWinner(board, v) ||
-  checkColsForWinner(board, v) ||
-  checkDiagonalsForWinner(board, v);
+const checkForWinner = (board: Board, cell: Cell): boolean =>
+  checkRowsForWinner(board, cell) ||
+  checkColsForWinner(board, cell) ||
+  checkDiagonalsForWinner(board, cell);
 
 /**
  * Checks if the game is a draw
@@ -91,8 +99,6 @@ const checkForDraw = (board: Board): boolean => {
 /**
  * Determines either the winner or a draw.
  * If null is returned the game continues.
- *
- * @returns "X" | "O" | "DRAW" | null
  */
 export const getWinner = (board: Board): GameState => {
   if (checkForWinner(board, player("X")))
