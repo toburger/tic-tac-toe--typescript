@@ -1,0 +1,19 @@
+{
+  "name": "tic-tac-toe--typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "ramda": "^0.25.0",
+    "react": "^16.5.1",
+    "react-dom": "^16.5.1",
+    "recompose": "^0.30.0"
+  },
+  "devDependencies": {
+    "@types/ramda": "^0.25.38",
+    "@types/react": "^16.4.14",
+    "@types/react-dom": "^16.0.7",
+    "@types/recompose": "^0.26.5",
+    "typescript": "^3.0.3"
+  }
+}
