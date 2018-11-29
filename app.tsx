@@ -224,11 +224,12 @@ const App = () => {
   );
 };
 
-// export default App;
+const ConcurrentMode = (React as any).ConcurrentMode;
 
-ReactDOM.render(
+(ReactDOM as any).createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
+    <ConcurrentMode>
+      <App />
+    </ConcurrentMode>
+  </React.StrictMode>
 );
