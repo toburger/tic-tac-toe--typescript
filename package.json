@@ -4,17 +4,18 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "ramda": "^0.25.0",
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1",
+    "ramda": "^0.26.1",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
     "recompose": "^0.30.0"
   },
   "devDependencies": {
-    "@types/ramda": "^0.25.38",
-    "@types/react": "^16.4.14",
-    "@types/react-dom": "^16.0.7",
-    "@types/recompose": "^0.26.5",
-    "cssnano": "^4.1.0",
-    "typescript": "^3.0.3"
+    "@types/node": "^10.12.10",
+    "@types/ramda": "^0.25.42",
+    "@types/react": "^16.7.8",
+    "@types/react-dom": "^16.0.11",
+    "@types/recompose": "^0.30.0",
+    "cssnano": "^4.1.7",
+    "typescript": "^3.1.6"
   }
 }
