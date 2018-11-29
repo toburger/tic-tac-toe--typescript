@@ -1,6 +1,6 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import { withReducer, onlyUpdateForKeys } from "recompose";
+import { onlyUpdateForKeys } from "recompose";
 import * as GameLogic from "./gameLogic";
 import "./app.css";
 import {
@@ -113,6 +113,8 @@ const Cell = onlyUpdateForKeys<CellProps>(["value"])(
               return <PlayerX />;
             case "O":
               return <PlayerO />;
+            default:
+              return null;
           }
         case "EMPTY":
           return <NoPlayer />;
@@ -201,31 +203,32 @@ const GameOver = ({
   </div>
 );
 
-const enhance = withReducer<undefined, State, Action, "state", "dispatch">(
-  "state",
-  "dispatch",
-  reducer,
-  initialState
-);
-
-const App = enhance(({ state, dispatch }) => (
-  <div className="App">
-    {prefetchImages()}
-    {state.winner.type === "GAME_OVER" ? (
-      <GameOver
-        winner={state.winner.gameOver}
-        onRestart={() => dispatch({ type: "RESTART" })}
-      />
-    ) : (
-      <Game
-        board={state.board}
-        currentPlayer={state.currentPlayer}
-        onMove={(x, y) => dispatch({ type: "MOVE", x, y })}
-      />
-    )}
-  </div>
-));
+const App = () => {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+  return (
+    <div className="App">
+      {prefetchImages()}
+      {state.winner.type === "GAME_OVER" ? (
+        <GameOver
+          winner={state.winner.gameOver}
+          onRestart={() => dispatch({ type: "RESTART" })}
+        />
+      ) : (
+        <Game
+          board={state.board}
+          currentPlayer={state.currentPlayer}
+          onMove={(x, y) => dispatch({ type: "MOVE", x, y })}
+        />
+      )}
+    </div>
+  );
+};
 
 // export default App;
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
