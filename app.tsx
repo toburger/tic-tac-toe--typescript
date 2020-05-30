@@ -57,8 +57,6 @@ const reducer = (state: State, action: Action): State => {
       };
     case "RESTART":
       return initialState;
-    default:
-      return state;
   }
 };
 
