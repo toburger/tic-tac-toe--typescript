@@ -7,7 +7,7 @@ import {
   winner,
   player,
   GameState,
-  empty
+  empty,
 } from "./types";
 
 /**
@@ -92,7 +92,7 @@ const checkForWinner = (board: Board, cell: Cell): boolean =>
  * It does check if all of the boards aren't null.
  */
 const checkForDraw = (board: Board): boolean => {
-  const check = R.all<Cell>(x => !R.equals(x, { type: "EMPTY" }));
+  const check = R.all<Cell>((x) => !R.equals(x, { type: "EMPTY" }));
   return check(R.flatten<Cell>(board));
 };
 

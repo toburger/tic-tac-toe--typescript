@@ -14,12 +14,12 @@ export const empty = (): Cell => ({ type: "EMPTY" });
 
 export const gameOver = (gameOver: GameOver): GameState => ({
   type: "GAME_OVER",
-  gameOver
+  gameOver,
 });
 
 export const winner = (player: Player): GameOver => ({
   type: "WINNER",
-  player
+  player,
 });
 
 export const player = (player: Player): Cell => ({ type: "PLAYER", player });

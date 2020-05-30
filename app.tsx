@@ -10,7 +10,7 @@ import {
   GameOver,
   GameState,
   empty,
-  player
+  player,
 } from "./types";
 
 // import PlayerXImage from "./assets/PlayerX.svg";
@@ -34,10 +34,10 @@ const initialState: State = {
   board: [
     [empty(), empty(), empty()],
     [empty(), empty(), empty()],
-    [empty(), empty(), empty()]
+    [empty(), empty(), empty()],
   ],
   currentPlayer: "X",
-  winner: { type: "CONTINUE" }
+  winner: { type: "CONTINUE" },
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -56,7 +56,7 @@ const reducer = (state: State, action: Action): State => {
         ...state,
         board: newBoard,
         currentPlayer: state.currentPlayer === "X" ? "O" : "X",
-        winner
+        winner,
       };
     case "RESTART":
       return initialState;
@@ -66,7 +66,7 @@ const reducer = (state: State, action: Action): State => {
 };
 
 const prefetchImages = () =>
-  [PlayerXImage, PlayerOImage, RestartImage].map(img => (
+  [PlayerXImage, PlayerOImage, RestartImage].map((img) => (
     <link key={img} rel="prefetch" href={img} />
   ));
 
@@ -122,7 +122,7 @@ const Cell = onlyUpdateForKeys<CellProps>(["value"])(
       <button
         className="Cell"
         disabled={value.type !== "EMPTY"}
-        onClick={e => onMove(x, y)}
+        onClick={(e) => onMove(x, y)}
       >
         <Child />
       </button>
@@ -161,7 +161,7 @@ const Board = ({ board, onMove }: { board: Board; onMove: OnMove }) => (
 const Game = ({
   board,
   onMove,
-  currentPlayer
+  currentPlayer,
 }: {
   board: Board;
   onMove: OnMove;
@@ -175,7 +175,7 @@ const Game = ({
 
 const GameOver = ({
   winner,
-  onRestart
+  onRestart,
 }: {
   winner: GameOver;
   onRestart: () => void;
@@ -183,7 +183,7 @@ const GameOver = ({
   <div className="GameOver">
     <img
       className="GameOver__Image"
-      onClick={e => onRestart()}
+      onClick={(e) => onRestart()}
       src={RestartImage}
       alt="Restart"
     />
