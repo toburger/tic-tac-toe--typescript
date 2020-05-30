@@ -201,7 +201,7 @@ const GameOver = ({
   </div>
 );
 
-const enhance = withReducer<undefined, State, Action, "state", "dispatch">(
+const enhance = withReducer<{}, State, Action, "state", "dispatch">(
   "state",
   "dispatch",
   reducer,
