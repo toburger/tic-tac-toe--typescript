@@ -1,7 +1,12 @@
 import React, { useReducer, memo } from "react";
 import ReactDOM from "react-dom";
 import * as GameLogic from "./gameLogic";
+
 import "./app.css";
+import PlayerXImage from "./assets/PlayerX.svg";
+import PlayerOImage from "./assets/PlayerO.svg";
+import RestartImage from "./assets/restart.png";
+
 import {
   Board,
   Player,
@@ -11,10 +16,6 @@ import {
   empty,
   player,
 } from "./types";
-
-import PlayerXImage from "./assets/PlayerX.svg";
-import PlayerOImage from "./assets/PlayerO.svg";
-import RestartImage from "./assets/restart.png";
 
 interface State {
   board: Board;
