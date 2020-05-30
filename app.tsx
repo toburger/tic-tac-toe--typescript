@@ -99,7 +99,7 @@ interface CellProps {
   onMove: OnMove;
 }
 
-const Cell = memo(({ value, x, y, onMove }: CellProps) => {
+const Cell = memo(function Cell({ value, x, y, onMove }: CellProps) {
   const Child = () => {
     switch (value.type) {
       case "PLAYER":
