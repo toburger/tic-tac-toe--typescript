@@ -93,7 +93,7 @@ const checkForWinner = (board: Board, cell: Cell): boolean =>
  */
 const checkForDraw = (board: Board): boolean => {
   const check = R.all<Cell>((x) => !R.equals(x, { type: "EMPTY" }));
-  return check(R.flatten<Cell>(board));
+  return check(R.flatten(board));
 };
 
 /**
