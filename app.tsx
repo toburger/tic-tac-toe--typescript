@@ -198,21 +198,23 @@ const GameOver = ({
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   return (
-    <div className="App">
-      {prefetchImages()}
-      {state.winner.type === "GAME_OVER" ? (
-        <GameOver
-          winner={state.winner.gameOver}
-          onRestart={() => dispatch({ type: "RESTART" })}
-        />
-      ) : (
-        <Game
-          board={state.board}
-          currentPlayer={state.currentPlayer}
-          onMove={(x, y) => dispatch({ type: "MOVE", x, y })}
-        />
-      )}
-    </div>
+    <React.StrictMode>
+      <div className="App">
+        {prefetchImages()}
+        {state.winner.type === "GAME_OVER" ? (
+          <GameOver
+            winner={state.winner.gameOver}
+            onRestart={() => dispatch({ type: "RESTART" })}
+          />
+        ) : (
+          <Game
+            board={state.board}
+            currentPlayer={state.currentPlayer}
+            onMove={(x, y) => dispatch({ type: "MOVE", x, y })}
+          />
+        )}
+      </div>
+    </React.StrictMode>
   );
 };
 
