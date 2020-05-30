@@ -1,6 +1,5 @@
-import * as React from "react";
+import React, { useReducer, memo } from "react";
 import ReactDOM from "react-dom";
-import { withReducer, onlyUpdateForKeys } from "recompose";
 import * as GameLogic from "./gameLogic";
 import "./app.css";
 import {
@@ -103,32 +102,30 @@ interface CellProps {
   onMove: OnMove;
 }
 
-const Cell = onlyUpdateForKeys<CellProps>(["value"])(
-  ({ value, x, y, onMove }: CellProps) => {
-    const Child = () => {
-      switch (value.type) {
-        case "PLAYER":
-          switch (value.player) {
-            case "X":
-              return <PlayerX />;
-            case "O":
-              return <PlayerO />;
-          }
-        case "EMPTY":
-          return <NoPlayer />;
-      }
-    };
-    return (
-      <button
-        className="Cell"
-        disabled={value.type !== "EMPTY"}
-        onClick={(e) => onMove(x, y)}
-      >
-        <Child />
-      </button>
-    );
-  }
-);
+const Cell = memo(({ value, x, y, onMove }: CellProps) => {
+  const Child = () => {
+    switch (value.type) {
+      case "PLAYER":
+        switch (value.player) {
+          case "X":
+            return <PlayerX />;
+          case "O":
+            return <PlayerO />;
+        }
+      case "EMPTY":
+        return <NoPlayer />;
+    }
+  };
+  return (
+    <button
+      className="Cell"
+      disabled={value.type !== "EMPTY"}
+      onClick={(e) => onMove(x, y)}
+    >
+      <Child />
+    </button>
+  );
+});
 
 const DispatchPlayer = ({ player }: { player: Player }) =>
   player === "X" ? (
@@ -201,30 +198,26 @@ const GameOver = ({
   </div>
 );
 
-const enhance = withReducer<{}, State, Action, "state", "dispatch">(
-  "state",
-  "dispatch",
-  reducer,
-  initialState
-);
-
-const App = enhance(({ state, dispatch }) => (
-  <div className="App">
-    {prefetchImages()}
-    {state.winner.type === "GAME_OVER" ? (
-      <GameOver
-        winner={state.winner.gameOver}
-        onRestart={() => dispatch({ type: "RESTART" })}
-      />
-    ) : (
-      <Game
-        board={state.board}
-        currentPlayer={state.currentPlayer}
-        onMove={(x, y) => dispatch({ type: "MOVE", x, y })}
-      />
-    )}
-  </div>
-));
+const App = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <div className="App">
+      {prefetchImages()}
+      {state.winner.type === "GAME_OVER" ? (
+        <GameOver
+          winner={state.winner.gameOver}
+          onRestart={() => dispatch({ type: "RESTART" })}
+        />
+      ) : (
+        <Game
+          board={state.board}
+          currentPlayer={state.currentPlayer}
+          onMove={(x, y) => dispatch({ type: "MOVE", x, y })}
+        />
+      )}
+    </div>
+  );
+};
 
 // export default App;
 
