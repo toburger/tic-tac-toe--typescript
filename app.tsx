@@ -99,30 +99,33 @@ interface CellProps {
   onMove: OnMove;
 }
 
-const Cell = memo(function Cell({ value, x, y, onMove }: CellProps) {
-  const Child = () => {
-    switch (value.type) {
-      case "PLAYER":
-        switch (value.player) {
-          case "X":
-            return <PlayerX />;
-          case "O":
-            return <PlayerO />;
-        }
-      case "EMPTY":
-        return <NoPlayer />;
-    }
-  };
-  return (
-    <button
-      className="Cell"
-      disabled={value.type !== "EMPTY"}
-      onClick={(e) => onMove(x, y)}
-    >
-      <Child />
-    </button>
-  );
-});
+const Cell = memo(
+  function Cell({ value, x, y, onMove }: CellProps) {
+    const Child = () => {
+      switch (value.type) {
+        case "PLAYER":
+          switch (value.player) {
+            case "X":
+              return <PlayerX />;
+            case "O":
+              return <PlayerO />;
+          }
+        case "EMPTY":
+          return <NoPlayer />;
+      }
+    };
+    return (
+      <button
+        className="Cell"
+        disabled={value.type !== "EMPTY"}
+        onClick={(e) => onMove(x, y)}
+      >
+        <Child />
+      </button>
+    );
+  },
+  (prev, next) => prev.value === next.value
+);
 
 const DispatchPlayer = ({ player }: { player: Player }) =>
   player === "X" ? (
