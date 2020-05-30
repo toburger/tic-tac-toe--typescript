@@ -12,12 +12,9 @@ import {
   player,
 } from "./types";
 
-// import PlayerXImage from "./assets/PlayerX.svg";
-// import PlayerOImage from "./assets/PlayerO.svg";
-// import RestartImage from "./assets/restart.png";
-const PlayerXImage = require("./assets/PlayerX.svg");
-const PlayerOImage = require("./assets/PlayerO.svg");
-const RestartImage = require("./assets/restart.png");
+import PlayerXImage from "./assets/PlayerX.svg";
+import PlayerOImage from "./assets/PlayerO.svg";
+import RestartImage from "./assets/restart.png";
 
 interface State {
   board: Board;
