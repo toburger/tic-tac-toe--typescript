@@ -35,7 +35,7 @@ const initialState: State = {
   ],
   currentPlayer: "X",
   winner: { type: "CONTINUE" },
-};
+} as const;
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -54,7 +54,7 @@ const reducer = (state: State, action: Action): State => {
         board: newBoard,
         currentPlayer: state.currentPlayer === "X" ? "O" : "X",
         winner,
-      };
+      } as const;
     case "RESTART":
       return initialState;
   }

@@ -33,7 +33,7 @@ export const updateBoard = (
  * Gets a single board value by x and y coordinates
  */
 export const getCell = (board: Board, x: number, y: number): Cell | null =>
-  R.path<Cell>([x, y])(board) || null;
+  R.path<Cell>([x, y])(board) ?? null;
 
 /**
  * Checks if a board value can be updated (simply checks if the board contains null)
@@ -59,12 +59,12 @@ const checkRowsForWinner = (board: Board, cell: Cell): boolean => {
  * to checkRowsForWinner
  */
 const checkColsForWinner = (board: Board, cell: Cell): boolean => {
-  const transposedBoard = R.transpose(board);
+  const transposedBoard = R.transpose(board as readonly Cell[][]);
   return checkRowsForWinner(transposedBoard, cell);
 };
 
 /**
- * Checks if all elements of a diagnola contain the same value 'v'.
+ * Checks if all elements of a diagonal contain the same value 'v'.
  * Checks the two diagonals.
  */
 const checkDiagonalsForWinner = (board: Board, cell: Cell): boolean => {
@@ -108,7 +108,7 @@ export const getWinner = (board: Board): GameState => {
     // player O wins!
     return gameOver(winner("O"));
   else if (checkForDraw(board))
-    // it'a a draw!
+    // it's a draw!
     return { type: "GAME_OVER", gameOver: { type: "DRAW" } };
   else return { type: "CONTINUE" };
 };
