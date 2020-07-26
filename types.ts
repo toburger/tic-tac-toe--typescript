@@ -1,14 +1,18 @@
 export type Player = "X" | "O";
 
-export type GameOver = { type: "WINNER"; player: Player } | { type: "DRAW" };
+export type GameOver =
+  | { type: "WINNER"; readonly player: Player }
+  | { type: "DRAW" };
 
 export type GameState =
-  | { type: "GAME_OVER"; gameOver: GameOver }
+  | { type: "GAME_OVER"; readonly gameOver: GameOver }
   | { type: "CONTINUE" };
 
-export type Cell = { type: "PLAYER"; player: Player } | { type: "EMPTY" };
+export type Cell =
+  | { type: "PLAYER"; readonly player: Player }
+  | { type: "EMPTY" };
 
-export type Board = readonly (readonly Cell[])[];
+export type Board = ReadonlyArray<ReadonlyArray<Cell>>;
 
 export const empty = (): Cell => ({ type: "EMPTY" } as const);
 

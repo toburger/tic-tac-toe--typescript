@@ -18,14 +18,16 @@ import {
 } from "./types";
 
 interface State {
-  board: Board;
-  currentPlayer: Player;
-  winner: GameState;
+  readonly board: Board;
+  readonly currentPlayer: Player;
+  readonly winner: GameState;
 }
 
 type OnMove = (x: number, y: number) => void;
 
-type Action = { type: "MOVE"; x: number; y: number } | { type: "RESTART" };
+type Action =
+  | { type: "MOVE"; readonly x: number; readonly y: number }
+  | { type: "RESTART" };
 
 const initialState: State = {
   board: [
