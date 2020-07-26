@@ -14,19 +14,16 @@ export type Cell =
 
 export type Board = ReadonlyArray<ReadonlyArray<Cell>>;
 
-export const empty = (): Cell => ({ type: "EMPTY" } as const);
+export const empty = (): Cell => ({ type: "EMPTY" });
 
-export const gameOver = (gameOver: GameOver): GameState =>
-  ({
-    type: "GAME_OVER",
-    gameOver,
-  } as const);
+export const gameOver = (gameOver: GameOver): GameState => ({
+  type: "GAME_OVER",
+  gameOver,
+});
 
-export const winner = (player: Player): GameOver =>
-  ({
-    type: "WINNER",
-    player,
-  } as const);
+export const winner = (player: Player): GameOver => ({
+  type: "WINNER",
+  player,
+});
 
-export const player = (player: Player): Cell =>
-  ({ type: "PLAYER", player } as const);
+export const player = (player: Player): Cell => ({ type: "PLAYER", player });
