@@ -23,9 +23,9 @@ type Action =
 
 const initialState: State = {
   board: [
-    [T.empty(), T.empty(), T.empty()],
-    [T.empty(), T.empty(), T.empty()],
-    [T.empty(), T.empty(), T.empty()],
+    [T.emptyCell(), T.emptyCell(), T.emptyCell()],
+    [T.emptyCell(), T.emptyCell(), T.emptyCell()],
+    [T.emptyCell(), T.emptyCell(), T.emptyCell()],
   ],
   currentPlayer: "X",
   winner: { type: "CONTINUE" },

@@ -14,7 +14,7 @@ export type Cell =
 
 export type Board = ReadonlyArray<ReadonlyArray<Cell>>;
 
-export const empty = (): Cell => ({ type: "EMPTY" });
+export const emptyCell = (): Cell => ({ type: "EMPTY" });
 
 export const gameOver = (gameOver: GameOver): GameState => ({
   type: "GAME_OVER",

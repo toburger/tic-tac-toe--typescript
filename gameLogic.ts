@@ -7,7 +7,7 @@ import {
   winner,
   player,
   GameState,
-  empty,
+  emptyCell,
 } from "./types";
 
 /**
@@ -39,7 +39,7 @@ export const getCell = (board: Board, x: number, y: number): Cell | null =>
  * Checks if a board value can be updated (simply checks if the board contains null)
  */
 export const canUpdateCell = (board: Board, x: number, y: number): boolean =>
-  R.equals(getCell(board, x, y), empty());
+  R.equals(getCell(board, x, y), emptyCell());
 
 /**
  * Checks if all elements a row contain the same value 'v'.
