@@ -1,5 +1,4 @@
 import React, { useReducer, memo } from "react";
-import ReactDOM from "react-dom";
 import * as GameLogic from "./gameLogic";
 
 import "url:./app.css";
@@ -214,6 +213,4 @@ const App = () => {
   );
 };
 
-// export default App;
-
-ReactDOM.render(<App />, document.getElementById("root"));
+export default App;
