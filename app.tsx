@@ -2,25 +2,17 @@ import React, { useReducer, memo } from "react";
 import ReactDOM from "react-dom";
 import * as GameLogic from "./gameLogic";
 
-import "./app.css";
-import PlayerXImage from "./assets/PlayerX.svg";
-import PlayerOImage from "./assets/PlayerO.svg";
-import RestartImage from "./assets/restart.png";
+import "url:./app.css";
+import PlayerXImage from "url:./assets/PlayerX.svg";
+import PlayerOImage from "url:./assets/PlayerO.svg";
+import RestartImage from "url:./assets/restart.png";
 
-import {
-  Board,
-  Player,
-  Cell,
-  GameOver,
-  GameState,
-  empty,
-  player,
-} from "./types";
+import * as T from "./types";
 
 interface State {
-  readonly board: Board;
-  readonly currentPlayer: Player;
-  readonly winner: GameState;
+  readonly board: T.Board;
+  readonly currentPlayer: T.Player;
+  readonly winner: T.GameState;
 }
 
 type OnMove = (x: number, y: number) => void;
@@ -31,9 +23,9 @@ type Action =
 
 const initialState: State = {
   board: [
-    [empty(), empty(), empty()],
-    [empty(), empty(), empty()],
-    [empty(), empty(), empty()],
+    [T.empty(), T.empty(), T.empty()],
+    [T.empty(), T.empty(), T.empty()],
+    [T.empty(), T.empty(), T.empty()],
   ],
   currentPlayer: "X",
   winner: { type: "CONTINUE" },
@@ -48,7 +40,7 @@ const reducer = (state: State, action: Action): State => {
         state.board,
         action.x,
         action.y,
-        player(state.currentPlayer)
+        T.player(state.currentPlayer)
       );
       const winner = GameLogic.getWinner(newBoard);
       return {
@@ -94,14 +86,14 @@ const NoPlayer = (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
 );
 
 interface CellProps {
-  value: Cell;
+  value: T.Cell;
   x: number;
   y: number;
   onMove: OnMove;
 }
 
 const Cell = memo(
-  function Cell({ value, x, y, onMove }: CellProps) {
+  function ({ value, x, y, onMove }: CellProps) {
     const Child = () => {
       switch (value.type) {
         case "PLAYER":
@@ -128,14 +120,14 @@ const Cell = memo(
   (prev, next) => prev.value === next.value
 );
 
-const DispatchPlayer = ({ player }: { player: Player }) =>
+const DispatchPlayer = ({ player }: { player: T.Player }) =>
   player === "X" ? (
     <PlayerX className="PlayerX--Small" />
   ) : (
     <PlayerO className="PlayerO--Small" />
   );
 
-const CurrentPlayer = ({ currentPlayer }: { currentPlayer: Player }) => (
+const CurrentPlayer = ({ currentPlayer }: { currentPlayer: T.Player }) => (
   <div className="CurrentPlayer">
     <span className="CurrentPlayer__Text">
       Player:
@@ -144,7 +136,7 @@ const CurrentPlayer = ({ currentPlayer }: { currentPlayer: Player }) => (
   </div>
 );
 
-const Board = ({ board, onMove }: { board: Board; onMove: OnMove }) => (
+const Board = ({ board, onMove }: { board: T.Board; onMove: OnMove }) => (
   <div>
     {board.map((ys, x) => (
       <div key={`${x}`} className="Board__Row">
@@ -161,9 +153,9 @@ const Game = ({
   onMove,
   currentPlayer,
 }: {
-  board: Board;
+  board: T.Board;
   onMove: OnMove;
-  currentPlayer: Player;
+  currentPlayer: T.Player;
 }) => (
   <div>
     <Board board={board} onMove={onMove} />
@@ -175,7 +167,7 @@ const GameOver = ({
   winner,
   onRestart,
 }: {
-  winner: GameOver;
+  winner: T.GameOver;
   onRestart: () => void;
 }) => (
   <div className="GameOver">

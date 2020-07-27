@@ -1,7 +1,7 @@
 {
   "name": "tic-tac-toe--typescript",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.html",
   "license": "MIT",
   "dependencies": {
     "ramda": "^0.27.0",
@@ -15,6 +15,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/recompose": "^0.30.7",
     "cssnano": "^4.1.10",
+    "parcel": "next",
     "typescript": "^3.9.3"
   }
 }
